@@ -17,7 +17,7 @@
   <select id="selectCreditExchangeBySkuid" parameterType="map" resultType="map">
     SELECT a.skuid,
     a.integral,
-    b.color,
+    d.pictureurl,
     b.salesprice,
     b.amount,
     b.sku_status,
@@ -26,6 +26,7 @@
     FROM creditsexchange a
     inner JOIN repertory b on a.skuid = b.skuid and b.sku_status = 1
     inner JOIN commodity c on b.spuid = c.spuid
+    inner JOIN picture d on b.skuid=d.repertoryid
     where a.skuid = #{skuid}
   </select>
 
@@ -33,7 +34,7 @@
   <select id="selectAllCreditExchange" resultType="map">
     SELECT a.skuid,
     a.integral,
-    b.color,
+    d.pictureurl,
     b.salesprice,
     b.amount,
     b.sku_status,
@@ -42,6 +43,7 @@
     FROM creditsexchange a
     inner JOIN repertory b on a.skuid = b.skuid and b.sku_status = 1
     inner JOIN commodity c on b.spuid = c.spuid
+    inner JOIN picture d on b.skuid=d.repertoryid
     <if test="param1 != null and param2 != null">
       where integral&lt; #{param2}  and integral&gt;#{param1}
     </if>
@@ -51,7 +53,7 @@
   <select id="selectHotCreditExchange" parameterType="map" resultType="map">
     SELECT a.skuid,
            a.integral,
-           b.color,
+           d.pictureurl,
            b.salesprice,
            b.amount,
            b.sku_status,
@@ -60,6 +62,7 @@
     FROM creditsexchange a
            inner JOIN repertory b on a.skuid = b.skuid and b.sku_status = 1
            inner JOIN commodity c on b.spuid = c.spuid
+           inner JOIN picture d on b.skuid=d.repertoryid
     where
       b.amount &lt; (SELECT AVG(amount) FROM repertory)
   </select>

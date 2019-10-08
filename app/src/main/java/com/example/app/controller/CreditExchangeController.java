@@ -1,13 +1,11 @@
 package com.example.app.controller;
 
 import com.example.app.commons.JsonBean;
+import com.example.app.model.Repertory;
 import com.example.app.model.Ucreditexchangedetails;
 import com.example.app.model.Usercredit;
 import com.example.app.model.WxUser;
-import com.example.app.service.CreditsexchangeService;
-import com.example.app.service.UcreditexchangedetailsService;
-import com.example.app.service.UsercreditService;
-import com.example.app.service.UserdiscountService;
+import com.example.app.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,6 +31,8 @@ public class CreditExchangeController {
     @Autowired
     UserdiscountService userdiscountService;
 
+    @Autowired
+    RepertoryService repertoryService;
 
     /**
      * 查询热门兑换商品
@@ -76,7 +76,7 @@ public class CreditExchangeController {
      * @return
      */
     @RequestMapping(value = "CreditExchangeBySkuid", method = RequestMethod.POST)
-    public JsonBean CreditExchangeBySkuid(HttpServletRequest session, int skuid, int integral) {
+    public JsonBean CreditExchangeBySkuid(HttpServletRequest session, int skuid, int integral,int shu,int amount) {
         WxUser wxUser = (WxUser) session.getSession().getAttribute("wx_user");
         //根据用户id查询出用户的积分信息
         Usercredit usercredit = usercreditService.selectByPrimaryKey(wxUser.getId());
@@ -91,6 +91,13 @@ public class CreditExchangeController {
 
             usercredit.setIntegral(usercredit.getIntegral() - integral);
             usercreditService.updateByPrimaryKeySelective(usercredit);
+
+            //兑换后，更新库存表，
+
+            Repertory repertory=new Repertory();
+            repertory.setAmount(amount-shu);
+            repertory.setSkuid(skuid);
+            repertoryService.updateByPrimaryKeySelective(repertory);
 
             return new JsonBean(0, "兑换商品成功", "success");
 
