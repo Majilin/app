@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.CommodityspecificationvalueMapper">
+  <resultMap id="BaseResultMap" type="com.example.app.model.Commodityspecificationvalue">
+    <!--@mbg.generated-->
+    <id column="psvid" jdbcType="INTEGER" property="psvid" />
+    <result column="spuid" jdbcType="INTEGER" property="spuid" />
+    <result column="psid" jdbcType="INTEGER" property="psid" />
+    <result column="psv_cretime" jdbcType="DATE" property="psvCretime" />
+    <result column="psv_editime" jdbcType="DATE" property="psvEditime" />
+    <result column="psv_status" jdbcType="INTEGER" property="psvStatus" />
+    <result column="psvalue" jdbcType="VARCHAR" property="psvalue" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    psvid, spuid, `psid`, psv_cretime, psv_editime, psv_status, psvalue
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from commodityspecificationvalue
+    where psvid = #{psvid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from commodityspecificationvalue
+    where psvid = #{psvid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.app.model.Commodityspecificationvalue">
+    <!--@mbg.generated-->
+    insert into commodityspecificationvalue (psvid, spuid, `psid`, 
+      psv_cretime, psv_editime, psv_status, 
+      psvalue)
+    values (#{psvid,jdbcType=INTEGER}, #{spuid,jdbcType=INTEGER}, #{psid,jdbcType=INTEGER}, 
+      #{psvCretime,jdbcType=DATE}, #{psvEditime,jdbcType=DATE}, #{psvStatus,jdbcType=INTEGER}, 
+      #{psvalue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.app.model.Commodityspecificationvalue">
+    <!--@mbg.generated-->
+    insert into commodityspecificationvalue
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psvid != null">
+        psvid,
+      </if>
+      <if test="spuid != null">
+        spuid,
+      </if>
+      <if test="psid != null">
+        `psid`,
+      </if>
+      <if test="psvCretime != null">
+        psv_cretime,
+      </if>
+      <if test="psvEditime != null">
+        psv_editime,
+      </if>
+      <if test="psvStatus != null">
+        psv_status,
+      </if>
+      <if test="psvalue != null">
+        psvalue,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psvid != null">
+        #{psvid,jdbcType=INTEGER},
+      </if>
+      <if test="spuid != null">
+        #{spuid,jdbcType=INTEGER},
+      </if>
+      <if test="psid != null">
+        #{psid,jdbcType=INTEGER},
+      </if>
+      <if test="psvCretime != null">
+        #{psvCretime,jdbcType=DATE},
+      </if>
+      <if test="psvEditime != null">
+        #{psvEditime,jdbcType=DATE},
+      </if>
+      <if test="psvStatus != null">
+        #{psvStatus,jdbcType=INTEGER},
+      </if>
+      <if test="psvalue != null">
+        #{psvalue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.app.model.Commodityspecificationvalue">
+    <!--@mbg.generated-->
+    update commodityspecificationvalue
+    <set>
+      <if test="spuid != null">
+        spuid = #{spuid,jdbcType=INTEGER},
+      </if>
+      <if test="psid != null">
+        `psid` = #{psid,jdbcType=INTEGER},
+      </if>
+      <if test="psvCretime != null">
+        psv_cretime = #{psvCretime,jdbcType=DATE},
+      </if>
+      <if test="psvEditime != null">
+        psv_editime = #{psvEditime,jdbcType=DATE},
+      </if>
+      <if test="psvStatus != null">
+        psv_status = #{psvStatus,jdbcType=INTEGER},
+      </if>
+      <if test="psvalue != null">
+        psvalue = #{psvalue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where psvid = #{psvid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.app.model.Commodityspecificationvalue">
+    <!--@mbg.generated-->
+    update commodityspecificationvalue
+    set spuid = #{spuid,jdbcType=INTEGER},
+      `psid` = #{psid,jdbcType=INTEGER},
+      psv_cretime = #{psvCretime,jdbcType=DATE},
+      psv_editime = #{psvEditime,jdbcType=DATE},
+      psv_status = #{psvStatus,jdbcType=INTEGER},
+      psvalue = #{psvalue,jdbcType=VARCHAR}
+    where psvid = #{psvid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.example.app.model.Order">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="time" jdbcType="DATE" property="time" />
+    <result column="totalprice" jdbcType="INTEGER" property="totalprice" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="addressid" jdbcType="INTEGER" property="addressid" />
+    <result column="ord_status" jdbcType="INTEGER" property="ordStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `time`, totalprice, userid, addressid, ord_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.app.model.Order">
+    <!--@mbg.generated-->
+    insert into order (id, `time`, totalprice, 
+      userid, addressid, ord_status
+      )
+    values (#{id,jdbcType=VARCHAR}, #{time,jdbcType=DATE}, #{totalprice,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER}, #{addressid,jdbcType=INTEGER}, #{ordStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.app.model.Order">
+    <!--@mbg.generated-->
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="time != null">
+        `time`,
+      </if>
+      <if test="totalprice != null">
+        totalprice,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="addressid != null">
+        addressid,
+      </if>
+      <if test="ordStatus != null">
+        ord_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="totalprice != null">
+        #{totalprice,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="addressid != null">
+        #{addressid,jdbcType=INTEGER},
+      </if>
+      <if test="ordStatus != null">
+        #{ordStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.app.model.Order">
+    <!--@mbg.generated-->
+    update order
+    <set>
+      <if test="time != null">
+        `time` = #{time,jdbcType=DATE},
+      </if>
+      <if test="totalprice != null">
+        totalprice = #{totalprice,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="addressid != null">
+        addressid = #{addressid,jdbcType=INTEGER},
+      </if>
+      <if test="ordStatus != null">
+        ord_status = #{ordStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.app.model.Order">
+    <!--@mbg.generated-->
+    update order
+    set `time` = #{time,jdbcType=DATE},
+      totalprice = #{totalprice,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      addressid = #{addressid,jdbcType=INTEGER},
+      ord_status = #{ordStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

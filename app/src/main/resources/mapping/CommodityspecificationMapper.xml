@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.CommodityspecificationMapper">
+  <resultMap id="BaseResultMap" type="com.example.app.model.Commodityspecification">
+    <!--@mbg.generated-->
+    <id column="psid" jdbcType="INTEGER" property="psid" />
+    <result column="psname" jdbcType="VARCHAR" property="psname" />
+    <result column="scid" jdbcType="INTEGER" property="scid" />
+    <result column="spuid" jdbcType="INTEGER" property="spuid" />
+    <result column="ps_cretime" jdbcType="DATE" property="psCretime" />
+    <result column="ps_editime" jdbcType="DATE" property="psEditime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    `psid`, psname, scid, spuid, ps_cretime, ps_editime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from commodityspecification
+    where `psid` = #{psid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from commodityspecification
+    where `psid` = #{psid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.app.model.Commodityspecification">
+    <!--@mbg.generated-->
+    insert into commodityspecification (`psid`, psname, scid, 
+      spuid, ps_cretime, ps_editime
+      )
+    values (#{psid,jdbcType=INTEGER}, #{psname,jdbcType=VARCHAR}, #{scid,jdbcType=INTEGER}, 
+      #{spuid,jdbcType=INTEGER}, #{psCretime,jdbcType=DATE}, #{psEditime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.app.model.Commodityspecification">
+    <!--@mbg.generated-->
+    insert into commodityspecification
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psid != null">
+        `psid`,
+      </if>
+      <if test="psname != null">
+        psname,
+      </if>
+      <if test="scid != null">
+        scid,
+      </if>
+      <if test="spuid != null">
+        spuid,
+      </if>
+      <if test="psCretime != null">
+        ps_cretime,
+      </if>
+      <if test="psEditime != null">
+        ps_editime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psid != null">
+        #{psid,jdbcType=INTEGER},
+      </if>
+      <if test="psname != null">
+        #{psname,jdbcType=VARCHAR},
+      </if>
+      <if test="scid != null">
+        #{scid,jdbcType=INTEGER},
+      </if>
+      <if test="spuid != null">
+        #{spuid,jdbcType=INTEGER},
+      </if>
+      <if test="psCretime != null">
+        #{psCretime,jdbcType=DATE},
+      </if>
+      <if test="psEditime != null">
+        #{psEditime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.app.model.Commodityspecification">
+    <!--@mbg.generated-->
+    update commodityspecification
+    <set>
+      <if test="psname != null">
+        psname = #{psname,jdbcType=VARCHAR},
+      </if>
+      <if test="scid != null">
+        scid = #{scid,jdbcType=INTEGER},
+      </if>
+      <if test="spuid != null">
+        spuid = #{spuid,jdbcType=INTEGER},
+      </if>
+      <if test="psCretime != null">
+        ps_cretime = #{psCretime,jdbcType=DATE},
+      </if>
+      <if test="psEditime != null">
+        ps_editime = #{psEditime,jdbcType=DATE},
+      </if>
+    </set>
+    where `psid` = #{psid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.app.model.Commodityspecification">
+    <!--@mbg.generated-->
+    update commodityspecification
+    set psname = #{psname,jdbcType=VARCHAR},
+      scid = #{scid,jdbcType=INTEGER},
+      spuid = #{spuid,jdbcType=INTEGER},
+      ps_cretime = #{psCretime,jdbcType=DATE},
+      ps_editime = #{psEditime,jdbcType=DATE}
+    where `psid` = #{psid,jdbcType=INTEGER}
+  </update>
+</mapper>

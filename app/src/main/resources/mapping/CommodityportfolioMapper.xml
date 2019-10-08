@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.CommodityportfolioMapper">
+  <resultMap id="BaseResultMap" type="com.example.app.model.Commodityportfolio">
+    <!--@mbg.generated-->
+    <id column="cpid" jdbcType="INTEGER" property="cpid" />
+    <result column="spuid" jdbcType="INTEGER" property="spuid" />
+    <result column="psid" jdbcType="INTEGER" property="psid" />
+    <result column="psvid" jdbcType="INTEGER" property="psvid" />
+    <result column="skuid" jdbcType="INTEGER" property="skuid" />
+    <result column="cp_cretime" jdbcType="DATE" property="cpCretime" />
+    <result column="cp_editime" jdbcType="DATE" property="cpEditime" />
+    <result column="cp_status" jdbcType="INTEGER" property="cpStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    cpid, spuid, `psid`, psvid, skuid, cp_cretime, cp_editime, cp_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from commodityportfolio
+    where cpid = #{cpid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from commodityportfolio
+    where cpid = #{cpid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.app.model.Commodityportfolio">
+    <!--@mbg.generated-->
+    insert into commodityportfolio (cpid, spuid, `psid`, 
+      psvid, skuid, cp_cretime, 
+      cp_editime, cp_status)
+    values (#{cpid,jdbcType=INTEGER}, #{spuid,jdbcType=INTEGER}, #{psid,jdbcType=INTEGER}, 
+      #{psvid,jdbcType=INTEGER}, #{skuid,jdbcType=INTEGER}, #{cpCretime,jdbcType=DATE}, 
+      #{cpEditime,jdbcType=DATE}, #{cpStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.app.model.Commodityportfolio">
+    <!--@mbg.generated-->
+    insert into commodityportfolio
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cpid != null">
+        cpid,
+      </if>
+      <if test="spuid != null">
+        spuid,
+      </if>
+      <if test="psid != null">
+        `psid`,
+      </if>
+      <if test="psvid != null">
+        psvid,
+      </if>
+      <if test="skuid != null">
+        skuid,
+      </if>
+      <if test="cpCretime != null">
+        cp_cretime,
+      </if>
+      <if test="cpEditime != null">
+        cp_editime,
+      </if>
+      <if test="cpStatus != null">
+        cp_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cpid != null">
+        #{cpid,jdbcType=INTEGER},
+      </if>
+      <if test="spuid != null">
+        #{spuid,jdbcType=INTEGER},
+      </if>
+      <if test="psid != null">
+        #{psid,jdbcType=INTEGER},
+      </if>
+      <if test="psvid != null">
+        #{psvid,jdbcType=INTEGER},
+      </if>
+      <if test="skuid != null">
+        #{skuid,jdbcType=INTEGER},
+      </if>
+      <if test="cpCretime != null">
+        #{cpCretime,jdbcType=DATE},
+      </if>
+      <if test="cpEditime != null">
+        #{cpEditime,jdbcType=DATE},
+      </if>
+      <if test="cpStatus != null">
+        #{cpStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.app.model.Commodityportfolio">
+    <!--@mbg.generated-->
+    update commodityportfolio
+    <set>
+      <if test="spuid != null">
+        spuid = #{spuid,jdbcType=INTEGER},
+      </if>
+      <if test="psid != null">
+        `psid` = #{psid,jdbcType=INTEGER},
+      </if>
+      <if test="psvid != null">
+        psvid = #{psvid,jdbcType=INTEGER},
+      </if>
+      <if test="skuid != null">
+        skuid = #{skuid,jdbcType=INTEGER},
+      </if>
+      <if test="cpCretime != null">
+        cp_cretime = #{cpCretime,jdbcType=DATE},
+      </if>
+      <if test="cpEditime != null">
+        cp_editime = #{cpEditime,jdbcType=DATE},
+      </if>
+      <if test="cpStatus != null">
+        cp_status = #{cpStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cpid = #{cpid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.app.model.Commodityportfolio">
+    <!--@mbg.generated-->
+    update commodityportfolio
+    set spuid = #{spuid,jdbcType=INTEGER},
+      `psid` = #{psid,jdbcType=INTEGER},
+      psvid = #{psvid,jdbcType=INTEGER},
+      skuid = #{skuid,jdbcType=INTEGER},
+      cp_cretime = #{cpCretime,jdbcType=DATE},
+      cp_editime = #{cpEditime,jdbcType=DATE},
+      cp_status = #{cpStatus,jdbcType=INTEGER}
+    where cpid = #{cpid,jdbcType=INTEGER}
+  </update>
+</mapper>

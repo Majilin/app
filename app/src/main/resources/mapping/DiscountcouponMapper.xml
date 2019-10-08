@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.DiscountcouponMapper">
+  <resultMap id="BaseResultMap" type="com.example.app.model.Discountcoupon">
+    <!--@mbg.generated-->
+    <id column="dcid" jdbcType="INTEGER" property="dcid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="starttime" jdbcType="DATE" property="starttime" />
+    <result column="endtime" jdbcType="DATE" property="endtime" />
+    <result column="discountprice" jdbcType="INTEGER" property="discountprice" />
+    <result column="integral" jdbcType="INTEGER" property="integral" />
+    <result column="dc_status" jdbcType="INTEGER" property="dcStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    dcid, title, starttime, endtime, discountprice, integral, dc_status
+  </sql>
+
+  <select id="selectAllCoupon" parameterType="map" resultType="map">
+    select
+    <include refid="Base_Column_List" />
+    from discountcoupon
+  </select>
+
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from discountcoupon
+    where dcid = #{dcid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from discountcoupon
+    where dcid = #{dcid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.app.model.Discountcoupon">
+    <!--@mbg.generated-->
+    insert into discountcoupon (dcid, title, starttime,
+    endtime, discountprice, integral,
+    dc_status)
+    values (#{dcid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{starttime,jdbcType=DATE},
+    #{endtime,jdbcType=DATE}, #{discountprice,jdbcType=INTEGER}, #{integral,jdbcType=INTEGER},
+    #{dcStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.app.model.Discountcoupon">
+    <!--@mbg.generated-->
+    insert into discountcoupon
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dcid != null">
+        dcid,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="starttime != null">
+        starttime,
+      </if>
+      <if test="endtime != null">
+        endtime,
+      </if>
+      <if test="discountprice != null">
+        discountprice,
+      </if>
+      <if test="integral != null">
+        integral,
+      </if>
+      <if test="dcStatus != null">
+        dc_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dcid != null">
+        #{dcid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=DATE},
+      </if>
+      <if test="discountprice != null">
+        #{discountprice,jdbcType=INTEGER},
+      </if>
+      <if test="integral != null">
+        #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="dcStatus != null">
+        #{dcStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.app.model.Discountcoupon">
+    <!--@mbg.generated-->
+    update discountcoupon
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        starttime = #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null">
+        endtime = #{endtime,jdbcType=DATE},
+      </if>
+      <if test="discountprice != null">
+        discountprice = #{discountprice,jdbcType=INTEGER},
+      </if>
+      <if test="integral != null">
+        integral = #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="dcStatus != null">
+        dc_status = #{dcStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where dcid = #{dcid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.app.model.Discountcoupon">
+    <!--@mbg.generated-->
+    update discountcoupon
+    set title = #{title,jdbcType=VARCHAR},
+    starttime = #{starttime,jdbcType=DATE},
+    endtime = #{endtime,jdbcType=DATE},
+    discountprice = #{discountprice,jdbcType=INTEGER},
+    integral = #{integral,jdbcType=INTEGER},
+    dc_status = #{dcStatus,jdbcType=INTEGER}
+    where dcid = #{dcid,jdbcType=INTEGER}
+  </update>
+</mapper>

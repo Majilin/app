@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.WxUserMapper">
+  <resultMap id="BaseResultMap" type="com.example.app.model.WxUser">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="subscribe" jdbcType="INTEGER" property="subscribe" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="headimgurl" jdbcType="VARCHAR" property="headimgurl" />
+    <result column="subscribeTime" jdbcType="TIMESTAMP" property="subscribetime" />
+    <result column="unionid" jdbcType="VARCHAR" property="unionid" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="groupid" jdbcType="VARCHAR" property="groupid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, openid, subscribe, nickname, sex, city, country, province, `language`, headimgurl, 
+    subscribeTime, unionid, remark, groupid
+  </sql>
+    <select id="selectByOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from wx_user
+    where openid = #{openid,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="com.example.app.model.WxUser" useGeneratedKeys="true" keyProperty="id" >
+    insert into wx_user (id, openid, subscribe,
+    nickname, sex, city,
+    country, province, language,
+    headimgurl, subscribeTime, unionid,
+    remark, groupid)
+    values (#{id,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{subscribe,jdbcType=INTEGER},
+    #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR},
+    #{country,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR},
+    #{headimgurl,jdbcType=VARCHAR}, now(), #{unionid,jdbcType=VARCHAR},
+    #{remark,jdbcType=VARCHAR}, #{groupid,jdbcType=VARCHAR})
+  </insert>
+
+</mapper>

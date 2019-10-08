@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>待付款</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <script src="js/rem.js"></script> 
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="css/page.css"/>
+    <link rel="stylesheet" type="text/css" href="css/all.css"/>
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/loaders.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/loading.css"/>
+<script type="text/javascript">
+	$(window).load(function(){
+		$(".loading").addClass("loader-chanage");
+		$(".loading").fadeOut(300);
+        $.ajax({
+            type: "post",
+            url: " http://irn9uu1.hn3.mofasuidao.cn/app/order/getOrderByStatus.do",
+            data: {"ordstatus": "0"},
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                var str = "";
+                console.log(orders);
+                var orders = data.data.orders;
+                for (var i = 0; i < orders.length; i++) {
+                    var ordid = orders[i].id;
+                    var orderdets = orders[i].orderdetailsList;
+                    str += "<div class=\"order-list clearfloat\">\n" +
+                        "\t    \t\t<p class=\"ordernum box-s\">\n" +
+                        "\t    \t\t\t订单  " + ordid + "\n" +
+                        "\t    \t\t\t<span>待付款</span>\n" +
+                        "\t    \t\t</p>";
+                    for (var j = 0; j < orderdets.length; j++) {
+                        var amount = orderdets[j].amount;
+                        var price = orderdets[j].price;
+                        var pname = orderdets[j].commodity.pname;
+                        var img = orderdets[j].commodity.pImg;
+                        var psname = orderdets[j].commodityspecification.psname;
+                        var psvalue = orderdets[j].commodityspecificationvalue.psvalue;
+                        var skucolor = orderdets[j].repertory.color;
+                        str += "<div class=\"list clearfloat fl box-s\">\n" +
+                            "<a href=\"pro-detail.html\">\n" +
+                            "<div class=\"tu fl clearfloat\">\n" +
+                            "<img src=\"" + img + "\"/>\n" +
+                            "</div>\n" +
+                            "<div class=\"middle clearfloat fl\">\n" +
+                            "<p class=\"tit\">" + pname + "</p>\n" +
+                            "<p class=\"fu-tit\">\n" +
+                            "" + psname + psvalue + "\n" +
+                            "</p>\n" +
+                            "<p class=\"price clearfloat\">\n" +
+                            "<span class=\"xprice fl\">¥" + price + "</span>\n" +
+                            "<span class=\"yprice fl\">¥308</span>\n" +
+                            "<span class=\"sjzhuanx fl\">手机专享价</span>\n" +
+                            "<span class=\"shu\">×" + amount + "</span>\n" +
+                            "</p>\n" +
+                            "</div>\n" +
+                            "</a>\n" +
+                            "</div>";
+                    }
+                    str += "<a href=\"assess.html\" class=\"gopay-btn fr\">\n" +
+                        "取消订单\n" +
+                        "</a>\n" +
+                        "<a href=\"track.html\" class=\"gopay-btn fr\">\n" +
+                        "去付款\n" +
+                        "</a>\n" +
+                        "</div>";
+                }
+                $("#main").append(str);
+            }
+        });
+	})
+</script>
+</head>
+<!--loading页开始-->
+<div class="loading">
+	<div class="loader">
+        <div class="loader-inner pacman">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+	</div>
+</div>
+<!--loading页结束-->
+	<body>
+		<header class="mui-bar mui-bar-nav report-header box-s" id="header">
+			<a href="javascript:history.go(-1)"><i class="iconfont icon-fanhui fl"></i></a>
+			<p>待付款</p>
+	    </header>
+	    <div id="main" class="mui-clearfix">
+	    	<div class="order-top clearfloat">
+	    		<ul>
+					<li class="clearfloat"><a href="order.html">全部</a></li>
+					<li class="clearfloat cur"><a href="ob-order.html">待付款</a></li>
+					<li class="clearfloat"><a href="se-order.html">待发货</a></li>
+					<li class="clearfloat"><a href="re-order.html">待收货</a></li>
+					<li class="clearfloat"><a href="ov-order.html">待评价</a></li>
+	    		</ul>
+	    	</div>
+	    </div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js" ></script>
+	<script src="js/fastclick.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/hmt.js" ></script>
+</html>

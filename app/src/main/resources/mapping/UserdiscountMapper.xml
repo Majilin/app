@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.UserdiscountMapper">
+  <resultMap id="BaseResultMap" type="com.example.app.model.Userdiscount">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="dcid" jdbcType="INTEGER" property="dcid" />
+    <result column="udc_status" jdbcType="INTEGER" property="udcStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `uid`, dcid, udc_status
+  </sql>
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from userdiscount
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from userdiscount
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.app.model.Userdiscount">
+    <!--@mbg.generated-->
+    insert into userdiscount (id, `uid`, dcid,
+    udc_status)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{dcid,jdbcType=INTEGER},
+    #{udcStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.app.model.Userdiscount">
+    <!--@mbg.generated-->
+    insert into userdiscount
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uid != null">
+        `uid`,
+      </if>
+      <if test="dcid != null">
+        dcid,
+      </if>
+      <if test="udcStatus != null">
+        udc_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="dcid != null">
+        #{dcid,jdbcType=INTEGER},
+      </if>
+      <if test="udcStatus != null">
+        #{udcStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.app.model.Userdiscount">
+    <!--@mbg.generated-->
+    update userdiscount
+    <set>
+      <if test="uid != null">
+        `uid` = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="dcid != null">
+        dcid = #{dcid,jdbcType=INTEGER},
+      </if>
+      <if test="udcStatus != null">
+        udc_status = #{udcStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.app.model.Userdiscount">
+    <!--@mbg.generated-->
+    update userdiscount
+    set `uid` = #{uid,jdbcType=INTEGER},
+    dcid = #{dcid,jdbcType=INTEGER},
+    udc_status = #{udcStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.OrdersMapper">
+  <resultMap id="BaseResultMap" type="com.example.app.model.Orders">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="ordertime" jdbcType="VARCHAR" property="ordertime"/>
+    <result column="totalprice" jdbcType="INTEGER" property="totalprice"/>
+    <result column="userid" jdbcType="INTEGER" property="userid"/>
+    <result column="addressid" jdbcType="INTEGER" property="addressid"/>
+    <result column="ord_status" jdbcType="INTEGER" property="ordStatus"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, ordertime, totalprice, userid, addressid, ord_status
+  </sql>
+
+
+  <select id="getOrders" parameterType="java.lang.Integer" resultMap="getOrdedsresp">
+    SELECT o.id,o.ordertime,o.totalprice,o.addressid,o.ord_status,o.userid,
+    od.pid,od.price,od.amount,c.pname,c.p_img,r.color,r.salesprice,r.activeprice,cpf.psname,cpfv.psvalue from
+    orders o inner join orderdetails od,commodityportfolio cp,commodityspecification cpf,
+    commodityspecificationvalue cpfv,commodity c,repertory r where o.id=od.ordid and od.pid=r.skuid and
+    cp.spuid=c.spuid and cp.cpid=r.cpid and cp.psid=cpf.psid and cp.psvid=cpfv.psvid and
+    o.userid=#{userid,jdbcType=INTEGER}
+  </select>
+  <resultMap id="getOrdedsresp" type="com.example.app.model.Orders">
+    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="ordertime" jdbcType="VARCHAR" property="ordertime"/>
+    <result column="totalprice" jdbcType="INTEGER" property="totalprice"/>
+    <result column="userid" jdbcType="INTEGER" property="userid"/>
+    <result column="addressid" jdbcType="INTEGER" property="addressid"/>
+    <result column="ord_status" jdbcType="INTEGER" property="ordStatus"/>
+    <collection property="orderdetailsList" ofType="com.example.app.model.Orderdetails">
+      <result column="amount" jdbcType="INTEGER" property="amount"/>
+      <result column="price" jdbcType="INTEGER" property="price"/>
+      <association property="commodity" javaType="com.example.app.model.Commodity">
+        <result column="pname" jdbcType="VARCHAR" property="pname"/>
+        <result column="p_img" jdbcType="VARCHAR" property="pImg"/>
+      </association>
+      <association property="commodityspecification" javaType="com.example.app.model.Commodityspecification">
+        <result column="psname" jdbcType="VARCHAR" property="psname"/>
+      </association>
+      <association property="commodityspecificationvalue"
+                   javaType="com.example.app.model.Commodityspecificationvalue">
+        <result column="psvalue" jdbcType="VARCHAR" property="psvalue"/>
+      </association>
+      <association property="repertory" javaType="com.example.app.model.Repertory">
+        <result column="color" jdbcType="VARCHAR" property="color"/>
+      </association>
+    </collection>
+  </resultMap>
+
+
+  <select id="getOrderByStatus" resultMap="getOrderByStatusresp">
+    SELECT o.id,o.ordertime,o.totalprice,o.addressid,o.ord_status,o.userid,
+    od.pid,od.price,od.amount,c.pname,c.p_img,r.color,r.salesprice,r.activeprice,cpf.psname,cpfv.psvalue from
+    orders o inner join orderdetails od,commodityportfolio cp,commodityspecification cpf,
+    commodityspecificationvalue cpfv,commodity c,repertory r where o.id=od.ordid and od.pid=r.skuid and
+    cp.spuid=c.spuid and cp.cpid=r.cpid and cp.psid=cpf.psid and cp.psvid=cpfv.psvid and
+    o.userid=#{param1,jdbcType=INTEGER}
+    and o.ord_status=#{param2,jdbcType=INTEGER}
+  </select>
+  <resultMap id="getOrderByStatusresp" type="com.example.app.model.Orders">
+    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="ordertime" jdbcType="VARCHAR" property="ordertime"/>
+    <result column="totalprice" jdbcType="INTEGER" property="totalprice"/>
+    <result column="userid" jdbcType="INTEGER" property="userid"/>
+    <result column="addressid" jdbcType="INTEGER" property="addressid"/>
+    <result column="ord_status" jdbcType="INTEGER" property="ordStatus"/>
+    <collection property="orderdetailsList" ofType="com.example.app.model.Orderdetails">
+      <result column="amount" jdbcType="INTEGER" property="amount"/>
+      <result column="price" jdbcType="INTEGER" property="price"/>
+      <association property="commodity" javaType="com.example.app.model.Commodity">
+        <result column="pname" jdbcType="VARCHAR" property="pname"/>
+        <result column="p_img" jdbcType="VARCHAR" property="pImg"/>
+      </association>
+      <association property="commodityspecification" javaType="com.example.app.model.Commodityspecification">
+        <result column="psname" jdbcType="VARCHAR" property="psname"/>
+      </association>
+      <association property="commodityspecificationvalue"
+                   javaType="com.example.app.model.Commodityspecificationvalue">
+        <result column="psvalue" jdbcType="VARCHAR" property="psvalue"/>
+      </association>
+      <association property="repertory" javaType="com.example.app.model.Repertory">
+        <result column="color" jdbcType="VARCHAR" property="color"/>
+      </association>
+    </collection>
+  </resultMap>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from orders
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from orders
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.app.model.Orders">
+    <!--@mbg.generated-->
+    insert into orders (id, ordertime, totalprice,
+    userid, addressid, ord_status
+    )
+    values (#{id,jdbcType=VARCHAR}, #{ordertime,jdbcType=VARCHAR}, #{totalprice,jdbcType=INTEGER},
+    #{userid,jdbcType=INTEGER}, #{addressid,jdbcType=INTEGER}, #{ordStatus,jdbcType=INTEGER}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.app.model.Orders">
+    <!--@mbg.generated-->
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ordertime != null">
+        ordertime,
+      </if>
+      <if test="totalprice != null">
+        totalprice,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="addressid != null">
+        addressid,
+      </if>
+      <if test="ordStatus != null">
+        ord_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ordertime != null">
+        #{ordertime,jdbcType=VARCHAR},
+      </if>
+      <if test="totalprice != null">
+        #{totalprice,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="addressid != null">
+        #{addressid,jdbcType=INTEGER},
+      </if>
+      <if test="ordStatus != null">
+        #{ordStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.app.model.Orders">
+    <!--@mbg.generated-->
+    update orders
+    <set>
+      <if test="ordertime != null">
+        ordertime = #{ordertime,jdbcType=VARCHAR},
+      </if>
+      <if test="totalprice != null">
+        totalprice = #{totalprice,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="addressid != null">
+        addressid = #{addressid,jdbcType=INTEGER},
+      </if>
+      <if test="ordStatus != null">
+        ord_status = #{ordStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.app.model.Orders">
+    <!--@mbg.generated-->
+    update orders
+    set ordertime = #{ordertime,jdbcType=VARCHAR},
+    totalprice = #{totalprice,jdbcType=INTEGER},
+    userid = #{userid,jdbcType=INTEGER},
+    addressid = #{addressid,jdbcType=INTEGER},
+    ord_status = #{ordStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

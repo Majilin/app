@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>选择收货地址</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <script src="js/rem.js"></script>
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="css/page.css"/>
+    <link rel="stylesheet" type="text/css" href="css/all.css"/>
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/loaders.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/loading.css"/>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $(".loading").addClass("loader-chanage")
+            $(".loading").fadeOut(300);
+            $.ajax({
+                type: "get",
+                url: " http://irn9uu1.hn3.mofasuidao.cn/app/address/getAlladdress.do",
+                async: false,
+                success: function (data) {
+                    var dataes = data.data;
+                    var str = "";
+                    for (var i = 0; i < dataes.length; i++) {
+                        var add=dataes[i].pcaProvinces.provinceName+dataes[i].pcaCities.cityName+dataes[i].pcaAreas.areaName+dataes[i].detail;
+                        if(dataes[i].addStatus==1) {
+                            str += "<div class=\"addlist clearfloat\">\n" +
+                                "        <div class=\"top clearfloat box-s\">\n" +
+                                "        <input type=\"hidden\" class=\"aid\" value=\""+dataes[i].aid+"\"/>\n" +
+                                "            <ul>\n" +
+                                "                <li>\n" +
+                                "                    <span class=\"fl\">"+dataes[i].consignee+"</span>\n" +
+                                "                    <span class=\"fr\">"+dataes[i].consigneetel+"</span>\n" +
+                                "                </li>\n" +
+                                "                <li>\n" +
+                                "                    <span class=\"moren\">[默认地址]</span>"+add+"\n" +
+                                "                </li>\n" +
+                                "            </ul>\n" +
+                                "    </div>\n"+
+                                "    </div>";
+                        }else {
+                            str += "<div class=\"addlist clearfloat\">\n" +
+                                "        <div class=\"top clearfloat box-s\">\n" +
+                                "        <input type=\"hidden\" class=\"aid\" value=\""+dataes[i].aid+"\">\n" +
+                                "            <ul>\n" +
+                                "                <li>\n" +
+                                "                    <span class=\"fl\">"+dataes[i].consignee+"</span>\n" +
+                                "                    <span class=\"fr\">"+dataes[i].consigneetel+"</span>\n" +
+                                "                </li>\n" +
+                                "                <li>\n" +
+                                "                 "+add+"\n" +
+                                "                </li>\n" +
+                                "            </ul>\n" +
+                                "        </div>\n" +
+                                "    </div>";
+                        }
+
+                    }
+                    $("#main").append(str);
+                }
+
+            });
+            var addlist=$(".addlist");
+            for (var i=0;i<addlist.length;i++){
+                $(addlist[i]).click(function () {
+                  var a=$(this).children(".top").find(".aid").val();
+
+                  sessionStorage.setItem("aid",a);
+                  history.back();
+                })
+            }
+
+        })
+    </script>
+</head>
+<!--loading页开始-->
+<div class="loading">
+    <div class="loader">
+        <div class="loader-inner pacman">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+<!--loading页结束-->
+<body>
+<header class="mui-bar mui-bar-nav report-header box-s" id="header">
+    <a href="javascript:history.go(-1)"><i class="iconfont icon-fanhui fl"></i></a>
+    <p>选择收货地址</p>
+    <span class="fr baocun"><a href="address.html">管理</a></span>
+</header>
+<div id="main" class="mui-clearfix add-address choice-address">
+</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script src="js/fastclick.js"></script>
+<script src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/hmt.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+</html>

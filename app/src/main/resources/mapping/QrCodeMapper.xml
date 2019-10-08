@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.QrCodeMapper">
+  <resultMap id="BaseResultMap" type="com.example.app.model.QrCode">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="wx_id" jdbcType="INTEGER" property="wxId" />
+    <result column="ticket" jdbcType="VARCHAR" property="ticket" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="expire_seconds" jdbcType="VARCHAR" property="expireSeconds" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, wx_id, ticket, create_time, expire_seconds
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from qr_code
+    where wx_id = #{wx_id}
+  </select>
+  <select id="selectByid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from qr_code
+    where id = #{id}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from qr_code
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.app.model.QrCode" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into qr_code (wx_id, ticket, create_time, 
+      expire_seconds)
+    values (#{wxId,jdbcType=INTEGER}, #{ticket,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{expireSeconds,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.app.model.QrCode" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into qr_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wxId != null">
+        wx_id,
+      </if>
+      <if test="ticket != null">
+        ticket,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="expireSeconds != null">
+        expire_seconds,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wxId != null">
+        #{wxId,jdbcType=INTEGER},
+      </if>
+      <if test="ticket != null">
+        #{ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="expireSeconds != null">
+        #{expireSeconds,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.app.model.QrCode">
+    <!--@mbg.generated-->
+    update qr_code
+    <set>
+      <if test="wxId != null">
+        wx_id = #{wxId,jdbcType=INTEGER},
+      </if>
+      <if test="ticket != null">
+        ticket = #{ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="expireSeconds != null">
+        expire_seconds = #{expireSeconds,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.app.model.QrCode">
+    <!--@mbg.generated-->
+    update qr_code
+    set wx_id = #{wxId,jdbcType=INTEGER},
+      ticket = #{ticket,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      expire_seconds = #{expireSeconds,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

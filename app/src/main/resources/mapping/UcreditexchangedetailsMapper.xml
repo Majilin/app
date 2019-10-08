@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.UcreditexchangedetailsMapper">
+  <resultMap id="BaseResultMap" type="com.example.app.model.Ucreditexchangedetails">
+    <!--@mbg.generated-->
+    <id column="ucedid" jdbcType="INTEGER" property="ucedid" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="skuid" jdbcType="INTEGER" property="skuid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ucedid, `uid`, skuid
+  </sql>
+  <select id="selectAllExchangeByuid" parameterType="map" resultType="map">
+    SELECT a.uid,b.color,b.salesprice,c.pname,d.integral
+    FROM ucreditexchangedetails a
+    inner join repertory b on a.skuid = b.skuid
+    inner join commodity c on b.spuid = c.spuid
+    inner join creditsexchange d on a.skuid = d.skuid
+    where a.uid=#{uid}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from ucreditexchangedetails
+    where ucedid = #{ucedid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from ucreditexchangedetails
+    where ucedid = #{ucedid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.app.model.Ucreditexchangedetails">
+    <!--@mbg.generated-->
+    insert into ucreditexchangedetails (ucedid, `uid`, skuid
+    )
+    values (#{ucedid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{skuid,jdbcType=INTEGER}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.app.model.Ucreditexchangedetails">
+    <!--@mbg.generated-->
+    insert into ucreditexchangedetails
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ucedid != null">
+        ucedid,
+      </if>
+      <if test="uid != null">
+        `uid`,
+      </if>
+      <if test="skuid != null">
+        skuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ucedid != null">
+        #{ucedid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="skuid != null">
+        #{skuid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.app.model.Ucreditexchangedetails">
+    <!--@mbg.generated-->
+    update ucreditexchangedetails
+    <set>
+      <if test="uid != null">
+        `uid` = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="skuid != null">
+        skuid = #{skuid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ucedid = #{ucedid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.app.model.Ucreditexchangedetails">
+    <!--@mbg.generated-->
+    update ucreditexchangedetails
+    set `uid` = #{uid,jdbcType=INTEGER},
+    skuid = #{skuid,jdbcType=INTEGER}
+    where ucedid = #{ucedid,jdbcType=INTEGER}
+  </update>
+</mapper>

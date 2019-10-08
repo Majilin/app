@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.ShopingboxMapper">
+  <resultMap id="BaseResultMap" type="com.example.app.model.Shopingbox">
+    <!--@mbg.generated-->
+    <id column="sid" jdbcType="INTEGER" property="sid"/>
+    <result column="cpid" jdbcType="INTEGER" property="cpid"/>
+    <result column="amount" jdbcType="INTEGER" property="amount"/>
+    <result column="uid" jdbcType="INTEGER" property="uid"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    sid, cpid, amount, `uid`
+  </sql>
+
+  <!-- 查询购物车数据开始 -->
+  <select id="getshopcarlist" parameterType="java.lang.Integer" resultMap="getlistresmap">
+    <!--@mbg.generated-->
+    SELECT s.amount,s.sid,s.cpid,s.uid ,c.pname ,c.p_img,r.color ,r.salesprice,r.activeprice,r.skuid,cpf.psname, cpfv.psvalue FROM shopingbox s inner
+    join
+    commodityportfolio cp,
+    commodityspecification cpf,
+    commodityspecificationvalue cpfv,
+    commodity c,repertory r
+    WHERE cp.cpid=s.cpid and cp.spuid=c.spuid and
+    cp.skuid=r.skuid and cp.psid=cpf.psid and cp.psvid=cpfv.psvid and s.uid=#{userid,jdbcType=INTEGER}
+  </select>
+  <resultMap id="getlistresmap" type="com.example.app.model.Shopingbox">
+    <id column="sid" jdbcType="INTEGER" property="sid"/>
+    <result column="cpid" jdbcType="INTEGER" property="cpid"/>
+    <result column="amount" jdbcType="INTEGER" property="amount"/>
+    <result column="uid" jdbcType="INTEGER" property="uid"/>
+    <association property="commodity" javaType="com.example.app.model.Commodity">
+      <result column="pname" jdbcType="VARCHAR" property="pname" />
+      <result column="p_img" jdbcType="VARCHAR" property="pImg" />
+    </association>
+    <association property="commodityspecification" javaType="com.example.app.model.Commodityspecification">
+      <result column="psname" jdbcType="VARCHAR" property="psname" />
+    </association>
+    <association property="commodityspecificationvalue"
+                 javaType="com.example.app.model.Commodityspecificationvalue">
+      <result column="psvalue" jdbcType="VARCHAR" property="psvalue" />
+    </association>
+    <association property="repertory" javaType="com.example.app.model.Repertory">
+      <id column="skuid" jdbcType="INTEGER" property="skuid" />
+      <result column="color" jdbcType="VARCHAR" property="color" />
+      <result column="salesprice" jdbcType="INTEGER" property="salesprice" />
+      <result column="activeprice" jdbcType="INTEGER" property="activeprice" />
+    </association>
+  </resultMap>
+
+  <!--查询购物车信息结束-->
+
+
+  <!-- 根据购物车id查询购物车数据开始 -->
+  <select id="getshopcarBySid"  resultMap="getshopcarBySidresp">
+    <!--@mbg.generated-->
+    SELECT s.amount,s.sid,s.cpid,s.uid ,c.pname ,c.p_img,r.color ,r.salesprice,r.activeprice,cpf.psname, cpfv.psvalue,r.skuid FROM shopingbox s inner
+    join
+    commodityportfolio cp,
+    commodityspecification cpf,
+    commodityspecificationvalue cpfv,
+    commodity c,repertory r
+    WHERE cp.cpid=s.cpid and cp.spuid=c.spuid and
+    cp.skuid=r.skuid and cp.psid=cpf.psid and cp.psvid=cpfv.psvid and s.sid=#{param1,jdbcType=INTEGER} and s.uid=#{param2,jdbcType=INTEGER}
+  </select>
+  <resultMap id="getshopcarBySidresp" type="com.example.app.model.Shopingbox">
+    <id column="sid" jdbcType="INTEGER" property="sid"/>
+    <result column="cpid" jdbcType="INTEGER" property="cpid"/>
+    <result column="amount" jdbcType="INTEGER" property="amount"/>
+    <result column="uid" jdbcType="INTEGER" property="uid"/>
+    <association property="commodity" javaType="com.example.app.model.Commodity">
+      <result column="pname" jdbcType="VARCHAR" property="pname" />
+      <result column="p_img" jdbcType="VARCHAR" property="pImg" />
+    </association>
+    <association property="commodityspecification" javaType="com.example.app.model.Commodityspecification">
+      <result column="psname" jdbcType="VARCHAR" property="psname" />
+    </association>
+    <association property="commodityspecificationvalue"
+                 javaType="com.example.app.model.Commodityspecificationvalue">
+      <result column="psvalue" jdbcType="VARCHAR" property="psvalue" />
+    </association>
+    <association property="repertory" javaType="com.example.app.model.Repertory">
+      <id column="skuid" jdbcType="INTEGER" property="skuid" />
+      <result column="color" jdbcType="VARCHAR" property="color" />
+      <result column="salesprice" jdbcType="INTEGER" property="salesprice" />
+      <result column="activeprice" jdbcType="INTEGER" property="activeprice" />
+    </association>
+  </resultMap>
+
+  <!--查询购物车信息结束-->
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List"/>
+    from shopingbox
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from shopingbox
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="sid" keyProperty="sid" parameterType="com.example.app.model.Shopingbox"
+          useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into shopingbox (cpid, amount, `uid`
+    )
+    values (#{cpid,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}
+    )
+  </insert>
+  <insert id="insertSelective" keyColumn="sid" keyProperty="sid" parameterType="com.example.app.model.Shopingbox"
+          useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into shopingbox
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cpid != null">
+        cpid,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="uid != null">
+        `uid`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cpid != null">
+        #{cpid,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.app.model.Shopingbox">
+    <!--@mbg.generated-->
+    update shopingbox
+    <set>
+      <if test="cpid != null">
+        cpid = #{cpid,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        `uid` = #{uid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.app.model.Shopingbox">
+    <!--@mbg.generated-->
+    update shopingbox
+    set cpid = #{cpid,jdbcType=INTEGER},
+    amount = #{amount,jdbcType=INTEGER},
+    `uid` = #{uid,jdbcType=INTEGER}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>
